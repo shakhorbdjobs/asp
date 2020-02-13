@@ -9,7 +9,7 @@ conn.Open "C:\inetpub\wwwroot\Alumniproj\alu.mdb"
 
 
 sql="INSERT INTO alum (Name,Email,"
-sql=sql & "Birthday,Phone,Batch,Gender,Department,Bloodgroup,Skills,Skills2)"
+sql=sql & "Birthday,Phone,Batch,Gender,Department,Bloodgroup,Skills)"
 sql=sql & " VALUES "
 sql=sql & "('" & Request.Form("Name") & "',"
         sql=sql & "'" & Request.Form("email") & "',"
@@ -20,35 +20,50 @@ sql=sql & "('" & Request.Form("Name") & "',"
         sql=sql & "" & Request.Form("department") & ","
         sql=sql & "" & Request.Form("bgroup") & ","
         sql=sql & "'" & Request.Form("skills") & "')"
-        'sql=sql & "" & Request.Form("Skills2") & ")"
+        'sql=sql & "" & Request.Form("Skills2") & ")"  
+      '  sk ="INSERT INTO Alumskill (alumskil) VALUES (" & request.form("skills2") & ")"
+          'Csk=Request.Form("Skills2")
+          Response.Write(sql)
+          conn.Execute(sql)
+
+          Pl = "SELECT MAX(ID) as ID FROM alum" 
+          Response.Write(Pl)
+          Set rowCollect =  conn.Execute(Pl)
 
 
-  '' sk ="INSERT INTO Alumskill (alumskil) VALUES (" & request.form("skills2") & ")"
-          Csk=Request.Form("Skills2")
-         strSQL="INSERT INTO Alumskills(skill) VALUES("strSQL=strSQL & Csk & ")"
+          Response.Write(rowCollect.Fields.Item("ID"))
+
+         strSQL="INSERT INTO Alumskills(skill) VALUES(" & Request.Form("Skills2") & ")"
         'Response.Write(strSQL)    
         'dim cbt,chk,strSQL
-        'Csk=Request.Form("Skills2")
+        Csk=Request.Form("Skills2")
         'c=1
         'If(InStr(Csk,", ")>0) Then
-        'arr=Split(Csk,", ")
-        'strSQL="INSERT INTO Allumskills(skill) VALUES ("
-        'For Each x In chk
-        'strSQL=strSQL & Csk & ")"
-        'c=c+1
-        'Set conn=conn.Execute(strSQL)
-        'Next
+        arr=Split(Csk,",")
+        Response.Write(Csk)
+        
+        For Each x In arr
+          strSQL="INSERT INTO Allumskills(skill,alumid) VALUES ( "
+          strSQL=strSQL & Csk & ", " & rowCollect.Fields.Item("ID") & " )"
+           objConn.execute(strSQL)
+        Next
+        
         'End If
-
+response.end
 Response.Write(strSQL)
        
-
-
+       
+   
+          da= "INSERT INTO Allumskills(skills) FROM P1"
+          objConn.execute(da)
+          
+  
+    Response.Write(da)
 
 'RESPONSE.END()
 'on error resume next
 conn.Execute sql,strSQL, recaffected
-'conn.Execute strSQL
+
 if err<>0 then
   Response.Write(err)
 else

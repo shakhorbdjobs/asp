@@ -62,25 +62,27 @@
          sql="INSERT INTO alum (Name,Email,"
          sql=sql & "Birthday,Phone,Batch,Gender,Department,Bloodgroup,Skills,Skills2)"
          sql=sql & " VALUES "
-        sql=sql & "('" & Request.Form("Name") & "',"
-        sql=sql & "'" & Request.Form("email") & "',"
-        sql=sql & "'" & Request.Form("Birthday") & "',"
-        sql=sql & "'" & Request.Form("phone") & "',"
-        sql=sql & "'" & Request.Form("batch") & "',"
-        sql=sql & "'" & Request.Form("gender") & "',"
-        sql=sql & "" & Request.Form("department") & ","
-        sql=sql & "" & Request.Form("bgroup") & ","
-        sql=sql & "'" & Request.Form("skills") & "')"
+         sql=sql & "('" & Request.Form("Name") & "',"
+         sql=sql & "'" & Request.Form("email") & "',"
+         sql=sql & "'" & Request.Form("Birthday") & "',"
+         sql=sql & "'" & Request.Form("phone") & "',"
+         sql=sql & "'" & Request.Form("batch") & "',"
+         sql=sql & "'" & Request.Form("gender") & "',"
+         sql=sql & "" & Request.Form("department") & ","
+         sql=sql & "" & Request.Form("bgroup") & ","
+         sql=sql & "'" & Request.Form("skills") & "')"
         'sql=sql & "" & Request.Form("Skills2") & ")"
-      
+         response.write(sql)
         'Csk=Request.Form("Skills2")
          strSQL="INSERT INTO Alumskills(skill) VALUES(" & Request.Form("Skills2") & ")"
-       ' strSQL="SELECT AllumSkill(ID) AS ID FROM almum"
+
+
+        'strSQL="SELECT AllumSkill(ID) AS ID FROM almum"
         'dim cbt,chk,strSQL
         'Csk=Request.Form("Skills2")
         'c=1
         'If(InStr(Csk,", ")>0) Then
-       '' arr=Split(Csk,", ")
+         'arr=Split(Csk,", ")
         'strSQL="INSERT INTO Allumskills(skill) VALUES ("
         'For Each x In chk
        '' strSQL=strSQL & Csk & ")"
@@ -91,7 +93,7 @@
 
         Response.Write(strSQL)
 
-        response.write(sql)
+        
 
         if err<>0 then
         Response.Write("<h2 style='color:red'>" & "Data Insrting error</h3>")
