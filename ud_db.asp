@@ -24,10 +24,11 @@ objConn.open connStr
         'Update Specific Id Record into Database        
         if Request.form("submit") <> ""  then
         
+        'sql QUERY '
         
         Dim upSQL
-        upSQL="UPDATE alum SET "
-        upSQL=upSQL &  "Name= '" & Request.Form("firstname") & "',"
+        upSQL=" UPDATE alum SET "
+        upSQL=upSQL &  "Name= '" & Request.Form("Name") & "',"
         upSQL=upSQL & "Email= '" & Request.Form("Email") & "',"
         upSQL=upSQL & "Phone= '" & Request.Form("Phone") & "',"
         upSQL=upSQL & "Birthday= '" & Request.Form("Birthday") & "',"
@@ -36,8 +37,8 @@ objConn.open connStr
         upSQL=upSQL & "Department= " & Request.Form("Department") & ","
         upSQL=upSQL & "Bloodgroup=" & Request.Form("bgroup") & ","
         upSQL=upSQL & "Skills= '" & Request.Form("Skills") & "',"
-        upSQL=upSQL & "Skills2= " & Request.Form("Skills2") & ","
-        upSQL=upSQL & "WHERE ID= " & dbshowID & ""
+        upSQL=upSQL & "Skills2= " & Request.Form("Skills2") & ""
+        upSQL=upSQL & " WHERE ID= " & dbshowID & ""
 
         response.write(upSQL)
 
@@ -45,18 +46,17 @@ objConn.open connStr
         set objCmd = Server.Createobject("ADODB.Command")
         objCmd.ActiveConnection = objConn 
         objCmd.CommandText = upSQL
-
         objCmd.NamedParameters = true
-        
         objCmd.execute
-        response.write(upSQL)
-
+       
+       response.write(upSQL)
+        
         if err<>0 then
 
                 response.write("No update permissions!")
             else
            %>
-                <h2 style='color:green;font-weight:bold' ><% response.write("Record Id  "&dbshowID&"  Updated Successfully") %></h2> %>
+                <h2 style='color:green;font-weight:bold' ><% response.write("Record Id  " & dbshowID &"  Updated Successfully") %></h2> %>
             <%
             end if
         end if
@@ -66,7 +66,7 @@ objConn.open connStr
 
 <%
 'Retrive Specific Id Record From Database
-Set rowCollect = objConn.execute("SELECT * FROM alum WHERE ID= " &dbshowID& "")
+Set rowCollect = objConn.execute("SELECT * FROM alum WHERE ID= " & dbshowID & "")
   'response.write(rowCollect.Fields.Item("DiseaseName"))
 %>
 

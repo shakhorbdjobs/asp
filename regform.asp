@@ -4,7 +4,7 @@
     if Request.form("submit") <> "" then
 
         dim messagei
-        Name= request.Form("firstname")
+        Name= request.Form("Name")
         Email= request.Form("email")
         Phone= request.Form("Phone")
         BirthDay= request.Form("Birthday")
@@ -50,19 +50,19 @@
             Response.Write("<h4 style='color:red'>Field Must not be empty</h4>")
 
     elseif BloodGroup ="" then
-            Response.Write("<h4 style='color:red'>Field Must not be empty</h4>")
+         Response.Write("<h4 style='color:red'>Field Must not be empty</h4>")
 
     elseif Skills ="" then
             Response.Write("<h4 style='color:red'>Field Must not be empty</h4>")
 
-    elseif Skills2 ="" then
+   elseif Skills2 ="" then
             Response.Write("<h4 style='color:red'>Field Must not be empty</h4>")
  else
     Dim sql
          sql="INSERT INTO alum (Name,Email,"
          sql=sql & "Birthday,Phone,Batch,Gender,Department,Bloodgroup,Skills,Skills2)"
          sql=sql & " VALUES "
-        sql=sql & "('" & Request.Form("firstname") & "',"
+        sql=sql & "('" & Request.Form("Name") & "',"
         sql=sql & "'" & Request.Form("email") & "',"
         sql=sql & "'" & Request.Form("Birthday") & "',"
         sql=sql & "'" & Request.Form("phone") & "',"
@@ -70,10 +70,28 @@
         sql=sql & "'" & Request.Form("gender") & "',"
         sql=sql & "" & Request.Form("department") & ","
         sql=sql & "" & Request.Form("bgroup") & ","
-        sql=sql & "'" & Request.Form("skills") & "',"
-        sql=sql & "" & Request.Form("Skills2") & ")"
+        sql=sql & "'" & Request.Form("skills") & "')"
+        'sql=sql & "" & Request.Form("Skills2") & ")"
+      
+        'Csk=Request.Form("Skills2")
+         strSQL="INSERT INTO Alumskills(skill) VALUES(" & Request.Form("Skills2") & ")"
+       ' strSQL="SELECT AllumSkill(ID) AS ID FROM almum"
+        'dim cbt,chk,strSQL
+        'Csk=Request.Form("Skills2")
+        'c=1
+        'If(InStr(Csk,", ")>0) Then
+       '' arr=Split(Csk,", ")
+        'strSQL="INSERT INTO Allumskills(skill) VALUES ("
+        'For Each x In chk
+       '' strSQL=strSQL & Csk & ")"
+        'c=c+1
+        'Set conn=conn.Execute(strSQL)
+        'Next
+        'End If
 
+        Response.Write(strSQL)
 
+        response.write(sql)
 
         if err<>0 then
         Response.Write("<h2 style='color:red'>" & "Data Insrting error</h3>")
@@ -86,13 +104,13 @@
     end if
 
 %>
- <form name ="form" action="reg.asp" method="post" >
+ <form name ="form" action="fsub.asp" method="post" >
 
 <div class="container-fluid">
 
 	
     <label for="fname"> Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name.." >
+    <input type="text" id="fname" name="Name" placeholder="Your name.." >
 
     <label for="email">Email</label>
     <input type="text" id="email" name="email" placeholder="Your email.." ><i></i>
@@ -118,27 +136,25 @@
     sp= "SELECT ID,dep_name FROM dep"
     Set rowCollect = objConn.execute(sp)%>
 
-      
     <label for="department">Department</label>
-    
     <select id="Department" name="Department">
+    <option value=""></option>
             <%do until rowCollect.EOF %>
-            
             <option value="<% response.write(rowCollect.Fields.Item("ID")) %>"><% response.write(rowCollect.Fields.Item("dep_name")) %></option>
             <%
             rowCollect.MoveNext
             loop
             %>
-             
-    <%
+             </select>
+
+     <%
       lp= "SELECT ID,bgp FROM Bgrp"
       Set rowCollect = objConn3.execute(lp)
-        %>         
-      
-    </select>
+        %>     
     <label for="bgrop">Blood Group</label>
-    <select id="Bloodgrp" name="bgroup">
-            
+    
+    <select id="Bloodgrp" name="bgroup" >
+            <option value=""></option>
             <%do until rowCollect.EOF %>
             
             <option value="<% response.write(rowCollect.Fields.Item("ID")) %>"><% response.write(rowCollect.Fields.Item("bgp")) %></option>
@@ -158,25 +174,30 @@ connStr1 = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\inetpub\wwwroot\Al
 objConn1.open connStr1
 
 %>
+
+
 <%
+
 cp= "SELECT ID,skills_set FROM Skills2"
 Set rowCollect = objConn1.execute(cp)
 %>
-
 <div class="col-sm-6">
     <p>Check your Skill:</p>
-  <form name="check" method="post">  
+  <form name="check" method="Post">  
     <label class="checkbox-inline" for="skills">
-        <%do until rowCollect.EOF %>
+        <% do until rowCollect.EOF %>
       <input type="checkbox" name="Skills2"
       value="<% response.write(rowCollect.Fields.Item("ID")) %>">
-      <% response.write(rowCollect.Fields.Item("skills_set")) %> </label>
+      <% response.write(rowCollect.Fields.Item("skills_set")) %>
+     </label>
          <%
             rowCollect.MoveNext
             loop
             %>
+           
             </label>
         </form>
+        <% Response.Write(check) %>
     </div>
 
             <input type="submit" name="submit" value="Submit" />

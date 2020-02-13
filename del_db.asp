@@ -32,7 +32,7 @@ objConn.open connStr
 
         Dim delSQL
         delSQL="DELETE FROM alum"
-        delSQL=delSQL & " WHERE ID=" & delID & ""
+        delSQL=delSQL & " WHERE ID LIKE " & delID & ""
         on error resume next
      
         
@@ -42,6 +42,9 @@ objConn.open connStr
         objCmd.CommandText = delSQL
         objCmd.NamedParameters = true
         objCmd.Execute
+
+        response.write(delSQL)
+
 
          if err<>0 then
     response.write("no update!")
@@ -53,19 +56,11 @@ objConn.open connStr
    
   end if
   
+
+  'COnnection close'
  objConn.close
         %>
-
-     
-      
-
 </div>
-
-
-
-
-
-
 
 </div>
 </div>

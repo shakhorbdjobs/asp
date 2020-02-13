@@ -132,7 +132,7 @@ objConn.open connStr
     Email = Request.form("email")
 
       dim sqls
-      sqls = "SELECT * FROM alum Where Name,Phone,Email LIKE  '%Name%' "
+      sqls = "SELECT FROM alum WHERE Name '& &"
 
       
       
@@ -151,7 +151,7 @@ objConn.open connStr
 
             %>
                 <% 
-                Set rowCollect = objConn.execute("SELECT FROM alum Where Name LIKE  '%Name%' ")
+                Set rowCollect = objConn.execute("SELECT FROM alum WHEREe Name LIKE  '%S' ")
                  dim i
                 i = 0
                 do until rowCollect.EOF 
