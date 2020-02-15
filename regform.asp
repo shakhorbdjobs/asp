@@ -90,7 +90,7 @@
         'Set conn=conn.Execute(strSQL)
         'Next
         'End If
-
+        conn.execute(strSQL)
         Response.Write(strSQL)
 
         
