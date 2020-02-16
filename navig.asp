@@ -15,20 +15,24 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.asp">Home</a>
+                        <a href="#">Home</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="data.asp">Show List</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="reg.asp">Registration</a>
                     </li>
-					<li class="active">
-                        <a href="Searchfr.asp">Search</a>
-                    </li>
+					
                 </ul>
 
-				
+				<!-- Search -->
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+				</form>
 
             </div>
             <!-- /.navbar-collapse -->
